@@ -23,11 +23,12 @@ import {
   // @ts-ignore
   Create,
   // @ts-ignore
+  Filter,
 } from "react-admin";
 
 export const PostList = (props) => {
   return (
-    <List {...props}>
+    <List filters={<PostFilter />} {...props}>
       <Datagrid>
         <TextField source="id" />
         <ReferenceField source="userId" reference="users">
@@ -68,4 +69,13 @@ export const PostCreate = (props) => (
       <TextInput multiline source="body" />
     </SimpleForm>
   </Create>
+);
+
+export const PostFilter = (props) => (
+  <Filter {...props}>
+    <TextInput label="search" source="q" alwaysOn />
+    <ReferenceInput label="User" source="UserId" reference="users" allowEmpty>
+      <SelectInput optionText="name" />
+    </ReferenceInput>
+  </Filter>
 );
